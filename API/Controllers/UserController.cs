@@ -5,12 +5,12 @@ using API.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UserController : ControllerBase
+   
+    public class UserController : BaseApiController
     {
         private readonly DataContext context;
         public UserController(DataContext context)
@@ -19,6 +19,7 @@ namespace API.Controllers
 
         }
      [HttpGet]
+     [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             return await  context.Users.ToListAsync();
@@ -27,7 +28,7 @@ namespace API.Controllers
 
        
     //mesba
-
+     [Authorize]
      [HttpGet("{id}")]
         public async Task< ActionResult<AppUser>> GetUsers(int id)
         {
