@@ -76,8 +76,8 @@
               "browserTarget": "client:build:production"
             },
             "development": {
-              "browserTarget": "client:build:development",
-              "ssl":true
+              "browserTarget": "client:build:development"
+           
             }
           },
           "defaultConfiguration": "development"
