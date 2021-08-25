@@ -29,7 +29,9 @@ currentuser$=this.currentuserSource.asObservable();
         if(user)
         {
           localStorage.setItem('user',JSON.stringify(user));
+          this.currentuserSource.next(user);
         }
+        return data;
   
     }
     )

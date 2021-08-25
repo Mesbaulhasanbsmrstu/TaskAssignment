@@ -20,7 +20,7 @@ constructor(private userService: UserServiceService) { }
   ngOnInit(): void {
   this.getCurrentuser();
   //this.currentuser$ = this.userService.currentuser$;
-  this.currentuser$=this.userService.currentuser$;
+ // this.currentuser$=this.userService.currentuser$;
   }
   login()
   {
@@ -28,10 +28,12 @@ constructor(private userService: UserServiceService) { }
      
       console.log(data);
     // console.log("mesba");
+   
   
     });
   
   }
+
   logOut()
   {
     this.userService.logOut();
@@ -43,5 +45,6 @@ getCurrentuser()
   this.currentuser$=this.userService.currentuser$; 
  // console.log(this.currentuser$);
 }
+
 
 }
