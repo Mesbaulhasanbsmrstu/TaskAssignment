@@ -31,7 +31,27 @@ currentuser$=this.currentuserSource.asObservable();
           localStorage.setItem('user',JSON.stringify(user));
           this.currentuserSource.next(user);
         }
+    
+  
+    }
+    )
+    )
+  
+    
+  }
+
+  Registration(model:any)
+  {
+    return this.http.post(`${environment.apiUrl}/Account/register`,model).pipe(
+      map(data=>{
+     const user:any=data;
+        if(user)
+        {
+          localStorage.setItem('user',JSON.stringify(user));
+          this.currentuserSource.next(user);
+        }
         return data;
+    
   
     }
     )

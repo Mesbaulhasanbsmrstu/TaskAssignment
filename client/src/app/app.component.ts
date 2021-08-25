@@ -11,16 +11,28 @@ import { UserServiceService } from './services/user-service.service';
 
 export class AppComponent implements OnInit{
 
-  users:any=[];
- 
-  constructor( ){
+  title = 'DatingApp';
+  users:any;
+  constructor(private userService: UserServiceService) { }
+
+
+  ngOnInit(): void {
+  
+  this.setCurrentuser();
+  }
+
+  setCurrentuser()
+  {
+    var users=localStorage.getItem('user')!;
+    const user:any=JSON.parse(users);
+   // var user=localStorage.getItem('user');
+    if(user)
+    {
+      this.userService.setCurrentUser(user);
+      console.log(user);
+    }
 
   }
-  ngOnInit(): void{
- 
- 
-  }
   
- 
   
 }

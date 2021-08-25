@@ -9,36 +9,29 @@ import { UserServiceService } from '../services/user-service.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  
-  title = 'DatingApp';
-  users:any;
+  registerMode=false;
+users:any;
   constructor(private userService: UserServiceService) { }
 
 
   ngOnInit(): void {
-  this.getUser();
-  this.setCurrentuser();
+this.getUser();
   }
 
-  setCurrentuser()
-  {
-    var users=localStorage.getItem('user')!;
-    const user:any=JSON.parse(users);
-   // var user=localStorage.getItem('user');
-    if(user)
-    {
-      this.userService.setCurrentUser(user);
-      console.log(user);
-    }
-
-  }
-  getUser()
-  {
-    this.userService.getUsers().subscribe((data) => {
-      this.users=data;
-      console.log(data);
-    
-    });
-  }
-
+ registerToggle()
+ {
+   this.registerMode=!this.registerMode;
+ }
+ getUser()
+ {
+   this.userService.getUsers().subscribe((data) => {
+     this.users=data;
+     console.log(data);
+   
+   });
+ }
+ cancelregisterMode(event:boolean)
+ {
+this.registerMode=event;
+ }
 }

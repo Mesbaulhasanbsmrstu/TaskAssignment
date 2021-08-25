@@ -8,13 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown'; 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RegisterComponent } from './register/register.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavComponent
+    NavComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
