@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { ReplaySubject } from 'rxjs';
+
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
@@ -9,6 +11,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserServiceService {
+private currentuserSource=new ReplaySubject<any>(1);
+currentuser$=this.currentuserSource.asObservable();
 
   constructor(private http: HttpClient) { }
   getUsers() {
@@ -16,11 +20,12 @@ export class UserServiceService {
 
   
   }
+
   logIn(model:any)
   {
     return this.http.post(`${environment.apiUrl}/Account/login`,model).pipe(
       map(data=>{
-     const user=data;
+     const user:any=data;
         if(user)
         {
           localStorage.setItem('user',JSON.stringify(user));
@@ -29,13 +34,19 @@ export class UserServiceService {
     }
     )
     )
-   
-
+  
+    
+  }
+  setCurrentUser(user:any)
+  {
+    this.currentuserSource.next(user);
   }
 
-  lohOut()
+  logOut()
   {
     localStorage.removeItem('user');
+   
+    this.currentuserSource.next(null);
 
   }
 }
