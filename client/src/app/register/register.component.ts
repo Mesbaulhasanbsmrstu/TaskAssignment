@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { UserServiceService } from '../services/user-service.service';
 
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   @Output() cancleRegister=new EventEmitter();
 
 model:any={};
-  constructor(private userService:UserServiceService) { }
+  constructor(private userService:UserServiceService,private toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +27,9 @@ model:any={};
     // console.log("mesba");
    
   
+    },error=>{
+      this.toastr.error(error.error);
+      
     });
   }
   cancle()
