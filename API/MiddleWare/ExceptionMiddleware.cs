@@ -21,7 +21,7 @@ namespace API.MiddleWare
 
         }
 
-        public async Task InvockAsyc(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             try{
                 await next(context);
