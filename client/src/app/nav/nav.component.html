@@ -19,7 +19,9 @@
                       <a class="nav-link" (click)="logOut()" href="#">LogOut</a>
                     </li>
                 </ng-container>
-                
+                <li class="nav-item">
+                  <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Errors</a>
+                </li>
               </ul>
 <div class="dropdown" *ngIf="(currentuser$| async) as user" dropdown>
 <a  class="dropdown-toggle text-light" dropdownToggle>Welcome {{username|titlecase}}</a>
