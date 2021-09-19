@@ -8,6 +8,8 @@ namespace API.Data
         {
             
         }
-     public DbSet<AppUser> Users{get;set;}
+   
+     public DbSet<Employees> userEmployee{get;set;}
+     public DbSet<TADAHistory> history{get;set;}
     }
 }

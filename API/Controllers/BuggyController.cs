@@ -28,9 +28,9 @@ namespace API.Controllers
 
 
     [HttpGet("not-found")]
-    public ActionResult<AppUser> GetNotFound()
+    public ActionResult<Employees> GetNotFound()
     {
-        var things=this.context.Users.Find(-1);
+        var things=this.context.userEmployee.Find(-1);
         if(things==null)return NotFound();
         return Ok(things);
     }
@@ -39,7 +39,7 @@ namespace API.Controllers
     [HttpGet("server-error")]
     public ActionResult<string> GetServerError()
     {
-        var things=this.context.Users.Find(-1);
+        var things=this.context.userEmployee.Find(-1);
          if(things==null) return  StatusCode(500,"no");
        return Convert.ToString(things); 
           

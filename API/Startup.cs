@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using API.Interfaces;
-using API.Services;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -42,7 +42,7 @@ namespace API
            services.AddApplicationService(configuration);
             services.AddControllers();
             services.AddCors();
-           services.AddIdentityService(configuration);
+         
 
            
         }
