@@ -1,0 +1,58 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+      <h1>TA/DA History</h1>
+      <div class="d-flex">
+        <button type="button"  class="btn btn-success" >Add</button>
+      </div>
+    </div>
+  
+</nav>
+<table class="table table-hover mt-3">
+    <thead>
+      <tr>
+        <th scope="col">
+          Date
+        </th>
+        <th scope="col">
+         Name
+        </th>
+        <th scope="col">
+          Travel Cost
+        </th>
+        <th scope="col">
+       Lunch Cost
+        </th>
+        <th scope="col">
+          Instruments Cost
+        </th>
+        <th scope="col">
+            Paid
+          </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of history">
+        <td>
+          {{item.date}}
+        </td>
+        <td>
+          {{item.name}}
+        </td>
+        <td>
+          {{item.travelCost}}
+        </td>
+        <td>
+          {{item.lunchCost}}
+        </td>
+        <td>
+            {{item.instrumentsCost}}
+          </td>
+        <td>
+            {{item.paid}}
+           
+           
+            
+        </td>
+      </tr>
+    </tbody>
+  </table>
