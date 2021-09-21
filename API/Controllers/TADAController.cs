@@ -12,14 +12,18 @@ using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using System;
 using API.Entities;
+
 namespace API.Controllers
 {
     public class TADAController: BaseApiController
     {
         private readonly DataContext context;
+        private readonly DataContext context1;
+      
         public TADAController(DataContext context)
         {
             this.context = context;
+            this.context1=context;
 
         }
          [HttpGet]
@@ -91,20 +95,29 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("pay")]  
+        [HttpPut("{id}")]  
        
-        public async Task<ActionResult<TadaAddResponseDto>> Pay(TADADto tadaDto)  
+        public async Task<ActionResult<TadaAddResponseDto>> Pay(int id)  
         {  
             //return objemployee.UpdateEmployee(employee);
+            TADAHistory history= await context.history.FindAsync(id);
+          
+                var tadaHistory = new TADAHistory()
+            {   id=history.id,
+                date=history.date,
+                Name=history.Name,
+                travelCost=history.travelCost,
+                lunchCost=history.lunchCost,
+                instrumentsCost=history.instrumentsCost,
+                totalCost=history.totalCost,
+                paid=1
+               
+            };
             
-               context.Entry(tadaDto).State = EntityState.Modified; 
-               await context.SaveChangesAsync();
-                return new TadaAddResponseDto()
-                {
-                    message="success"
-                    
-                };
+      
+              
 
         }
+
     }
 }
