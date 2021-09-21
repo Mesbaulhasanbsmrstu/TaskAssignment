@@ -10,7 +10,8 @@ using API.Dto;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
-using System.Linq;
+using System;
+using API.Entities;
 namespace API.Controllers
 {
     public class TADAController: BaseApiController
@@ -25,8 +26,33 @@ namespace API.Controllers
      [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<TADAHistory>>> GetHistory()
         {
-            return await  context.history.ToListAsync();
-       
+           List<TADAHistory> history=await  context.history.ToListAsync();
+           int length=history.Count;
+           // return await  context.history.ToListAsync();
+            for(int i=0;i<length;i++)
+            {
+                for(int j=i+1;j<length;j++)
+                {
+                    TADAHistory temp;
+                    if( DateTime.Parse(history[j].date)>DateTime.Parse(history[i].date))
+                    {
+                            temp=history[i];
+                            history[i]=history[j];
+                            history[j]=temp;
+
+                    }else if( DateTime.Parse(history[j].date)==DateTime.Parse(history[i].date))
+                    {
+                        if(history[i].paid==1&&history[j].paid==0)
+                        {
+                            temp=history[i];
+                            history[i]=history[j];
+                            history[j]=temp; 
+                        }
+                    }
+                }
+
+            }
+            return history;
         }
 
          [HttpPost("add")]
@@ -35,23 +61,50 @@ namespace API.Controllers
 
         {
             
-            var history = new TADAHistory()
+           
+            try{
+                 var history = new TADAHistory()
             {
                 date=tadaDto.date,
-                Name=tadaDto.Name,
+                Name=tadaDto.name,
                 travelCost=tadaDto.travelCost,
                 lunchCost=tadaDto.lunchCost,
                 instrumentsCost=tadaDto.instrumentsCost,
+                totalCost=(Convert.ToDouble(tadaDto.travelCost)+Convert.ToDouble(tadaDto.lunchCost)+Convert.ToDouble(tadaDto.instrumentsCost)).ToString(),
                 paid=tadaDto.paid
                
             };
-            context.history.Add(history);
+                context.history.Add(history);
             await context.SaveChangesAsync();
             return new TadaAddResponseDto()
             {
-                message="Sucsess"
+                message="success"
                 
             };
+            }catch(Exception e)
+            {
+             return new TadaAddResponseDto()
+            {
+                message="fail"
+                
+            };
+            }
+        }
+
+        [HttpPut("pay")]  
+       
+        public async Task<ActionResult<TadaAddResponseDto>> Pay(TADADto tadaDto)  
+        {  
+            //return objemployee.UpdateEmployee(employee);
+            
+               context.Entry(tadaDto).State = EntityState.Modified; 
+               await context.SaveChangesAsync();
+                return new TadaAddResponseDto()
+                {
+                    message="success"
+                    
+                };
+
         }
     }
 }

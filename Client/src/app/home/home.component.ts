@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { TadaService } from '../services/tada.service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormGroup
+} from '@angular/forms';
+import {
+  TadaService
+} from '../services/tada.service';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +17,20 @@ import { TadaService } from '../services/tada.service';
 export class HomeComponent implements OnInit {
   employee: any = [];
   history: any = [];
+  employeeId: any = [];
   addHistoryForm!: FormGroup;
-  constructor( private tadaService: TadaService) {
-   
-   }
+  constructor(private tadaService: TadaService) {
+
+  }
 
   ngOnInit(): void {
     this.tadaService.getHistory().subscribe((data) => {
       this.history = data;
     });
+  }
+  paid(employeeid: any) {
+    
+
   }
 
 }

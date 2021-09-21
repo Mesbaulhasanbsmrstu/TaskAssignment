@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System;
 namespace API.Dto
 {
     public class TADADto
@@ -6,7 +7,7 @@ namespace API.Dto
         [Required]
         public string date { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string name { get; set; }
         [Required]
         public string travelCost { get; set; }
         [Required]
