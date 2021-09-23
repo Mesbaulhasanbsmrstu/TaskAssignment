@@ -9,21 +9,21 @@ export class TadaService {
 
   constructor(private http: HttpClient) { }
   getEmployee() {
-    return this.http.get(`https://localhost:5001/api/Employees`).pipe(map(data => { return data }))
+    return this.http.get(`${environment.apiUrl}/Employees`).pipe(map(data => { return data }))
 
   
   }
   getHistory() {
-    return this.http.get(`https://localhost:5001/api/TADA`).pipe(map(data => { return data }))
+    return this.http.get(`${environment.apiUrl}/TADA`).pipe(map(data => { return data }))
 
   
   }
   addHistory(historyData:any) {
-    return this.http.post<any>(`https://localhost:5001/api/TADA/add`, historyData).pipe(map(data => { return data }))
+    return this.http.post<any>(`${environment.apiUrl}/TADA/add`, historyData).pipe(map(data => { return data }))
   }
   payTADA(payTADA: any)
   {
-    return this.http.put<any>(`https://localhost:5001/api/TADA/pay`, payTADA).pipe(map(data => { return data }))
+    return this.http.put<any>(`${environment.apiUrl}/TADA/pay`, payTADA).pipe(map(data => { return data }))
   }
 
 }
