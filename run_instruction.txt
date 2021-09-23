@@ -1,0 +1,4 @@
+1.Clone the repositories.
+2.Open project on vscode.
+3.Run API(.NET core) project.
+4.Run Client(Angular) project and test operation.
