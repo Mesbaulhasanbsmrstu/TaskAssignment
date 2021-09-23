@@ -1,14 +1,22 @@
 import {
   Component,
-  OnInit
+  ElementRef,
+  OnInit,
+  ViewChild
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router
+} from '@angular/router';
 import {
   FormGroup
 } from '@angular/forms';
 import {
   TadaService
 } from '../services/tada.service';
+import {
+  jsPDF
+} from "jspdf";
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +28,10 @@ export class HomeComponent implements OnInit {
   history: any = [];
   employeeId: any = [];
   addHistoryForm!: FormGroup;
-  constructor(private tadaService: TadaService,private router: Router) {
+
+  @ViewChild('historyTable') historyTable!: ElementRef;
+
+  constructor(private tadaService: TadaService, private router: Router) {
 
   }
 
@@ -29,27 +40,30 @@ export class HomeComponent implements OnInit {
       this.history = data;
     });
   }
-  paid(id:string,date:string,name:string,travelCost:string,lunchCost:string,instrumentsCost:string,totalCost:string,paid:any) {
-    
-    let tadaPay = {
-      id:id,
-      date: date,
-      name: name,
-      travelCost:travelCost,
-      lunchCost: lunchCost,
-      instrumentsCost: instrumentsCost,
-      totalCost:totalCost,
-      paid: paid
-    }
-   // console.log(tadaPay.paid);
-    this.tadaService.payTADA(tadaPay).subscribe(data => {
-    
-      
-     if(data.message=="success")
-     this.ngOnInit();
-    
-      
+
+  paid(item: any) {
+    item.paid = 1;
+    // console.log(tadaPay.paid);
+    this.tadaService.payTADA(item).subscribe(data => {
+      if (data.message == "success") {
+        this.tadaService.getHistory().subscribe((data) => {
+          this.history = data;
+        });
+      } 
     })
   }
 
+  downloadPdf() {
+    const doc = new jsPDF();
+
+    html2canvas(this.historyTable.nativeElement).then(canvas => {
+      let docWidth = 208;
+      let docHeight = canvas.height * docWidth / canvas.width;
+      const contentDataURL = canvas.toDataURL('image/png')
+      let position = 0;
+
+      doc.addImage(contentDataURL, 'PNG', 0, position, docWidth, docHeight)
+      doc.save(`ta/da_history_${new  Date().toLocaleString() }.pdf`);
+    }); 
+  }
 }

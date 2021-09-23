@@ -1,70 +1,75 @@
 <nav class="navbar navbar-light bg-primary">
   <div class="container-fluid">
     <h1>TA/DA History</h1>
-    <div class="d-flex">
-      <button type="button" routerLink="/add-history" class="btn btn-success">Add</button>
-    </div>
+    <button type="button" routerLink="/add-history" class="btn btn-success">Add</button>
   </div>
-
 </nav>
-<table class="table table-hover mt-3">
-  <thead>
-    <tr>
-      <th scope="col">
-        Date
-      </th>
-      <th scope="col">
-        Name
-      </th>
-      <th scope="col">
-        Travel Cost
-      </th>
-      <th scope="col">
-        Lunch Cost
-      </th>
-      <th scope="col">
-        Instruments Cost
-      </th>
-      <th scope="col">
-        Total Cost
-      </th>
-      <th scope="col">
-        Paid
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of history">
-      <td>
-        {{item.date}}
-      </td>
-      <td>
-        {{item.name}}
-      </td>
-      <td>
-        {{item.travelCost}}
-      </td>
-      <td>
-        {{item.lunchCost}}
-      </td>
-      <td>
-        {{item.instrumentsCost}}
-      </td>
-      <td>
-        {{item.totalCost}}
-      </td>
-      <td>
+
+<button type="button" class="btn btn-outline-primary" (click)="downloadPdf()">OpenPdf</button>
+
+<div class="table-container" #historyTable>
+  <h2>TA/DA History</h2>
+  <table class="table table-hover mt-3">
+    <thead>
+      <tr>
+        <th scope="col">
+          Date
+        </th>
+        <th scope="col">
+          Name
+        </th>
+        <th scope="col">
+          Travel Cost
+        </th>
+        <th scope="col">
+          Lunch Cost
+        </th>
+        <th scope="col">
+          Instruments Cost
+        </th>
+        <th scope="col">
+          Total Cost
+        </th>
+        <th scope="col">
+          Paid
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of history">
+        <td>
+          {{item.date}}
+        </td>
+        <td>
+          {{item.name}}
+        </td>
+        <td>
+          {{item.travelCost}}
+        </td>
+        <td>
+          {{item.lunchCost}}
+        </td>
+        <td>
+          {{item.instrumentsCost}}
+        </td>
+        <td>
+          {{item.totalCost}}
+        </td>
+        <td>
 
 
-        <div *ngIf="item.paid==0"  (click)="paid(item.id,item.date,item.name,item.travelCost,item.lunchCost,item.instrumentsCost,item.totalCost,1)">
-          
-          <button class="btn btn-info">Pay</button>
-        </div>
-        <div *ngIf="item.paid==1">
-         <label>Paid</label>
-        </div>
+          <div *ngIf="item.paid==0"
+            (click)="paid(item)">
 
-      </td>
-    </tr>
-  </tbody>
-</table>
+            <button class="btn btn-info">Pay</button>
+          </div>
+          <div *ngIf="item.paid==1">
+            <label>Paid</label>
+          </div>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

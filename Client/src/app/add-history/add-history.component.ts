@@ -44,13 +44,7 @@ export class AddHistoryComponent implements OnInit {
     }
 
     this.tadaService.addHistory(tadaHistory).subscribe(data => {
-     // if (data.message == "success")
-     // window. location. reload();
-     //this.router.navigate(['/home'])
      this.router.navigate(['/home'])
-     .then(() => {
-       window.location.reload();
-     });
     })
   }
 }
