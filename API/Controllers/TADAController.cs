@@ -95,23 +95,29 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("{id}")]  
+        [HttpPut("pay")]  
        
-        public async Task<ActionResult<TadaAddResponseDto>> Pay(int id)  
+        public async Task<ActionResult<TadaAddResponseDto>> Pay(PaytadaDto payDto)  
         {  
             //return objemployee.UpdateEmployee(employee);
-            TADAHistory history= await context.history.FindAsync(id);
-          
-                var tadaHistory = new TADAHistory()
-            {   id=history.id,
-                date=history.date,
-                Name=history.Name,
-                travelCost=history.travelCost,
-                lunchCost=history.lunchCost,
-                instrumentsCost=history.instrumentsCost,
-                totalCost=history.totalCost,
-                paid=1
-               
+            TADAHistory history= await context.history.FindAsync(payDto.id);
+             // var entity = _collection.Find(item.Id);
+    if (history == null)
+    {
+          return new TadaAddResponseDto()
+            {
+                message="fail"
+                
+            };
+    }
+
+    context.Entry(history).CurrentValues.SetValues(payDto);
+      await context.SaveChangesAsync();
+      
+              return new TadaAddResponseDto()
+            {
+                message="success"
+                
             };
             
       

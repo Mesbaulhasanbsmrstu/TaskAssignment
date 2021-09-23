@@ -2,6 +2,7 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormGroup
 } from '@angular/forms';
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   history: any = [];
   employeeId: any = [];
   addHistoryForm!: FormGroup;
-  constructor(private tadaService: TadaService) {
+  constructor(private tadaService: TadaService,private router: Router) {
 
   }
 
@@ -28,9 +29,27 @@ export class HomeComponent implements OnInit {
       this.history = data;
     });
   }
-  paid(employeeid: any) {
+  paid(id:string,date:string,name:string,travelCost:string,lunchCost:string,instrumentsCost:string,totalCost:string,paid:any) {
     
-
+    let tadaPay = {
+      id:id,
+      date: date,
+      name: name,
+      travelCost:travelCost,
+      lunchCost: lunchCost,
+      instrumentsCost: instrumentsCost,
+      totalCost:totalCost,
+      paid: paid
+    }
+   // console.log(tadaPay.paid);
+    this.tadaService.payTADA(tadaPay).subscribe(data => {
+    
+      
+     if(data.message=="success")
+     this.ngOnInit();
+    
+      
+    })
   }
 
 }

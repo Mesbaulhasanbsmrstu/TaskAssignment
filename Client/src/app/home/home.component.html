@@ -56,9 +56,9 @@
       <td>
 
 
-        <div *ngIf="item.paid==0"  (ngSubmit)="paid(item.id)">
+        <div *ngIf="item.paid==0"  (click)="paid(item.id,item.date,item.name,item.travelCost,item.lunchCost,item.instrumentsCost,item.totalCost,1)">
           
-          <button class="btn btn-success" type="submit">Pay</button>
+          <button class="btn btn-info">Pay</button>
         </div>
         <div *ngIf="item.paid==1">
          <label>Paid</label>
